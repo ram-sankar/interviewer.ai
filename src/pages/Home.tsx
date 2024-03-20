@@ -59,11 +59,12 @@ export const Home = () => {
               <Table sx={{ minWidth: 700 }} aria-label="customized table" className="table">
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell>Topic</StyledTableCell>
-                    <StyledTableCell align="right">YoE</StyledTableCell>
-                    <StyledTableCell align="right">No. of Questions</StyledTableCell>
-                    <StyledTableCell align="right">Created On</StyledTableCell>
-                    <StyledTableCell align="right">Actions</StyledTableCell>
+                    <StyledTableCell className="tableTitle">Topic</StyledTableCell>
+                    <StyledTableCell align="center" className="tableTitle">YoE</StyledTableCell>
+                    <StyledTableCell align="center" className="tableTitle">No. of Questions</StyledTableCell>
+                    <StyledTableCell align="center" className="tableTitle">Created On</StyledTableCell>
+                    <StyledTableCell align="center" className="tableTitle">Actions</StyledTableCell>
+                    
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -72,12 +73,15 @@ export const Home = () => {
                       <StyledTableCell component="th" scope="row">
                         {question.topic}
                       </StyledTableCell>
-                      <StyledTableCell align="right">{question.yoe}</StyledTableCell>
-                      <StyledTableCell align="right">{question.numberOfQuestions}</StyledTableCell>
-                      <StyledTableCell align="right">{getFormattedDate(question.timestamp)}</StyledTableCell>
-                      <StyledTableCell align="right">
+                      <StyledTableCell align="center">{question.yoe}</StyledTableCell>
+                      <StyledTableCell align="center">{question.numberOfQuestions}</StyledTableCell>
+                      <StyledTableCell align="center">{getFormattedDate(question.timestamp)}</StyledTableCell>
+                      <StyledTableCell align="center">
                         <Button variant="contained" className="proceedBtn" onClick={() => copyQuestionURL(question)}>
                           Copy Test URL
+                        </Button>
+                        <Button variant="contained" className="proceedBtn" onClick={() => copyQuestionURL(question)}>
+                          Start Test
                         </Button>
                       </StyledTableCell>
                     </StyledTableRow>

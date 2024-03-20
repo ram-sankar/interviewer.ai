@@ -140,7 +140,7 @@ export const Navbar = () => {
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 <Link to="/generate-questions" style={{ color: 'white', textDecoration: 'none' }}>
-                GENERATE QUESTIONS
+                  Create Test
                 </Link>
               </Button>
             

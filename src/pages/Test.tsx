@@ -20,9 +20,10 @@ export const Test = () => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
     const [isCompleted, setIsCompleted] = useState(false)
     const [messages, setMessages] = useState<Message[]>([
-        { id: 1, text: "Hi! I'm your ai interviewer", sender: Sender.BOT },
+        { id: 1, text: "Hi! I'm your AI interviewer, Please answer the following questions.", sender: Sender.BOT },
     ]);
     const [result, setResult] = useState<Result[]>([])
+    const [currentMark, setCurrentMark] = useState<string>("")
     const [newMessage, setNewMessage] = useState('');
     const [finalSummary, setFinalSummary] = useState<string>(ERROR.NO_SUMMARY)
     
@@ -82,7 +83,7 @@ export const Test = () => {
             rating: markJson.mark || 0,
             summary: markJson.summary || ERROR.NO_SUMMARY
         }
-        console.log(`Question ${currentQuestionIndex+1}. mark: ${res.rating}, summary: ${res.summary}`)
+        setCurrentMark(`Question ${currentQuestionIndex}. mark: ${res.rating}/5, review: ${res.summary}`)
         setResult((result) => [...result, res])
     }
 
@@ -121,6 +122,9 @@ export const Test = () => {
                         {message.text}
                         </div>
                     ))}
+                    <div className="currentReview">
+                        {currentMark}
+                    </div>
                     </div>
                     <form onSubmit={handleMessageSubmit} className="message-form">
                     <input
