@@ -2,6 +2,8 @@ import { RouterProvider } from "react-router-dom";
 import { auth} from "./api/firebase";
 import routes from "./config/routes";
 import {useEffect,useState} from "react";
+import "./App.css"
+
 function App() {
   const [userName,setUserName]=useState("");
 useEffect(()=>{

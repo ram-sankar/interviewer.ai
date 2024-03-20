@@ -26,9 +26,16 @@ function Login() {
 
         setSubmitButtonDisabled(true);
         signInWithEmailAndPassword(auth,values.email,values.pass)
-        .then(async(res)=>{
+        .then(async(res: any)=>{
+            const user = {
+                displayName: res.user.displayName,
+                email: res.user.email,
+                accessToken: res.user.accessToken,
+            }
+            localStorage.setItem("user", JSON.stringify(user))
+
             setSubmitButtonDisabled(false);
-            navigate("/");
+            // navigate("/");
         }
         ).catch((err)=>{
             setSubmitButtonDisabled(false);

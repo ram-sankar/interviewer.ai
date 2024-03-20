@@ -1,11 +1,13 @@
 import { useFormik } from "formik";
 import { Navbar } from "../components/Navbar";
 import { Box, Button, InputLabel, MenuItem, Select, TextField } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./styles.css"
 import { getResponseFromPrompt } from "../api/gemini";
 import { generateQuestionsFromTopic } from "../shared/prompt";
-import { numQuestionsList, yoeList } from "../shared/constants";
+import { INDICES, numQuestionsList, yoeList } from "../shared/constants";
+import { db } from "../api/firebase";
+import { collection, addDoc, where, query, getDocs } from "firebase/firestore"; 
 
 export const GenerateQuestions = () => {
     const [topic, setTopic] = useState("Java Script")
@@ -13,6 +15,22 @@ export const GenerateQuestions = () => {
     const [numberOfQuestions, setNumQuestions] = useState(numQuestionsList[0])
     const [step, setStep] = useState(1)
     const [questions, setQuestions] = useState<string[]>([])
+
+    useEffect(() => {
+        const fun = async () => {
+            const q = query(collection(db, INDICES.QUESTIONS), where("email", "==", "ram@gmail.com"));
+            const querySnapshot = await getDocs(q);
+            const dataList: any = []
+            querySnapshot.forEach((doc) => {
+                dataList.push({
+                    id: doc.id,
+                    ...doc.data()
+                })
+            });
+            console.log(dataList)
+        }
+        fun();
+    }, [])
 
 
     const generateQuestionsList = async () => {
@@ -23,15 +41,20 @@ export const GenerateQuestions = () => {
         setStep(2)
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
+        const u = localStorage.getItem("user") || ""
+        const userDetails = JSON.parse(u)
+
         const payload = {
-            user: 1,
+            email: userDetails.email,
             questions,
             topic,
             yoe,
             numberOfQuestions
         }
-        console.log(payload)
+
+        const docRef = await addDoc(collection(db, INDICES.QUESTIONS), payload);
+        console.log("Document written with ID: ", docRef.id);
     }
 
     const RenderForm = () => {
