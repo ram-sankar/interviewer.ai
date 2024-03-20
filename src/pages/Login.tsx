@@ -4,6 +4,7 @@ import InputControl from './InputControl';
 import { Link , useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword} from 'firebase/auth';
 import { auth } from '../api/firebase';
+import { UserDetails } from '../shared/modal';
 
 function Login() {
 
@@ -27,7 +28,7 @@ function Login() {
         setSubmitButtonDisabled(true);
         signInWithEmailAndPassword(auth,values.email,values.pass)
         .then(async(res: any)=>{
-            const user = {
+            const user: UserDetails = {
                 displayName: res.user.displayName,
                 email: res.user.email,
                 accessToken: res.user.accessToken,
@@ -35,7 +36,7 @@ function Login() {
             localStorage.setItem("user", JSON.stringify(user))
 
             setSubmitButtonDisabled(false);
-            // navigate("/");
+            navigate("/");
         }
         ).catch((err)=>{
             setSubmitButtonDisabled(false);

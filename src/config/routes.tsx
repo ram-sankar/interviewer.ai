@@ -6,6 +6,7 @@ import { Home } from "../pages/Home";
 
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
+import { Test } from "../pages/Test";
 
 
 
@@ -31,15 +32,15 @@ const mainRoutes = createBrowserRouter([
         element: <GenerateQuestions />,
     },
     {
-        path: "/home",
+        path: "/test",
         children: [
             {
-                index: true,
+                path: ":testID/report",
                 element: <Home />,
             },
             {
-                path: ":productId",
-                element: <Home />,
+                path: ":testID",
+                element: <Test />,
             },
         ],
     },
